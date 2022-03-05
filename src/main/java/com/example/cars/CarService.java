@@ -10,24 +10,39 @@ import java.util.stream.Collectors;
 //@Component//bean -> SINGLETON
 public class CarService {
 
+    private PersonService personService;
+
     @Autowired
     private CarRepository carRepository;
 
     public CarDto add(CarDto carDto) {
         Car car = new Car();
         car.setModel(carDto.getModel());
+        car.setMileage(carDto.getMileage());
         Car saved = carRepository.save(car);
-        return new CarDto(saved.getId(), saved.getModel());
+        return saved.toDto();
     }
 
     public List<CarDto> find(String query) {
-        if(query == null || query.isBlank()) {
+        if (query == null || query.isBlank()) {
             return carRepository.findAll().stream()
-                    .map(c -> new CarDto(c.getId(), c.getModel()))
+                    .map(c -> c.toDto())
                     .collect(Collectors.toList());
         }
         return carRepository.findByModel(query).stream()
-                .map(c -> new CarDto(c.getId(), c.getModel()))
+                .map(Car::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
+    }
+
+    public CarDto updateCar(Long id, CarDto carDto) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id));
+        car.update(carDto);
+        Car saved = carRepository.save(car);
+        return saved.toDto();
     }
 }

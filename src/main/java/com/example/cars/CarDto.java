@@ -8,9 +8,11 @@ import lombok.Setter;
 public class CarDto {
     private Long id;
     private String model;
+    private Long mileage;
 
-    public CarDto(Long id, String model) {
+    public CarDto(Long id, String model, Long mileage) {
         this.id = id;
         this.model = model;
+        this.mileage = mileage;
     }
 }

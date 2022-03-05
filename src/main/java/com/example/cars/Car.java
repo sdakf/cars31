@@ -17,4 +17,15 @@ public class Car {
     private Long id;
 
     private String model;
+
+    private Long mileage;
+
+    public CarDto toDto() {
+        return new CarDto(id, model, mileage);
+    }
+
+    public void update(CarDto carDto) {
+        this.model = carDto.getModel();
+        this.mileage = carDto.getMileage();
+    }
 }
