@@ -16,9 +16,7 @@ public class CarService {
     private CarRepository carRepository;
 
     public CarDto add(CarDto carDto) {
-        Car car = new Car();
-        car.setModel(carDto.getModel());
-        car.setMileage(carDto.getMileage());
+        Car car = Car.create(carDto);
         Car saved = carRepository.save(car);
         return saved.toDto();
     }

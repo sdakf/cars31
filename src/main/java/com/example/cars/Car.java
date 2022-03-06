@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Setter
 @Getter
 public class Car {
     @Id
@@ -19,6 +18,13 @@ public class Car {
     private String model;
 
     private Long mileage;
+
+    public static Car create(CarDto carDto) {
+        Car car = new Car();
+        car.mileage = carDto.getMileage();
+        car.model = carDto.getModel();
+        return car;
+    }
 
     public CarDto toDto() {
         return new CarDto(id, model, mileage);
