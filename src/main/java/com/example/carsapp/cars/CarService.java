@@ -1,7 +1,8 @@
-package com.example.cars;
+package com.example.carsapp.cars;
 
-import com.example.cars.users.User;
-import com.example.cars.users.UserRepository;
+import com.example.carsapp.EntityNotFoundException;
+import com.example.carsapp.users.User;
+import com.example.carsapp.users.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

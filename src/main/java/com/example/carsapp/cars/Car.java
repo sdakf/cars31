@@ -1,10 +1,11 @@
-package com.example.cars;
+package com.example.carsapp.cars;
 
-import com.example.cars.users.User;
+import com.example.carsapp.options.CarOption;
+import com.example.carsapp.users.User;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +20,10 @@ public class Car {
     private String model;
 
     private Long mileage;
+
+    @ManyToMany
+    @JoinTable(name = "cars_options")
+    private List<CarOption> option;
 
     public static Car create(CarDto carDto) {
         Car car = new Car();

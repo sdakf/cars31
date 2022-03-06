@@ -1,6 +1,6 @@
-package com.example.cars.users;
+package com.example.carsapp.users;
 
-import com.example.cars.EntityNotFoundException;
+import com.example.carsapp.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

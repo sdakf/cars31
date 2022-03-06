@@ -1,4 +1,4 @@
-package com.example.cars;
+package com.example.carsapp;
 
 public class EntityNotFoundException extends RuntimeException {
 

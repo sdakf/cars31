@@ -1,4 +1,4 @@
-package com.example.cars.users;
+package com.example.carsapp.users;
 
 import lombok.Getter;
 

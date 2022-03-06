@@ -1,4 +1,4 @@
-package com.example.cars.users;
+package com.example.carsapp.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

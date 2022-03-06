@@ -10,7 +10,31 @@
 		{
 			"name": "GET cars",
 			"request": {
-				"url": "localhost:8080/cars",
+				"url": {
+					"raw": "localhost:8080/cars?ownerId=1&q=Citroen",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars"
+					],
+					"query": [
+						{
+							"key": "ownerId",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "q",
+							"value": "Citroen",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -43,7 +67,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"model\": \"Skoda Fabia\",\n\t\"mileage\": \"70000\"\n}"
+					"raw": "{\n\t\"model\": \"Opel Kadet\",\n\t\"mileage\": \"111100000\"\n}"
 				},
 				"description": ""
 			},
@@ -72,7 +96,7 @@
 		{
 			"name": "PUT cars",
 			"request": {
-				"url": "localhost:8080/",
+				"url": "localhost:8080/cars/1",
 				"method": "PUT",
 				"header": [
 					{
@@ -83,7 +107,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n        \"id\": 2,\n        \"model\": \"Audi a4\",\n        \"mileage\": 30000\n    }"
+					"raw": "    {\n        \"id\": 1,\n        \"model\": \"Citroen C5\",\n        \"mileage\": 100000,\n        \"ownerId\": 1,\n        \"optionIds\":[1,2]\n    },"
 				},
 				"description": ""
 			},

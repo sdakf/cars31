@@ -1,4 +1,4 @@
-package com.example.cars;
+package com.example.carsapp.cars;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +9,6 @@ import java.util.List;
 
 @RestController
 public class CarsController {
-
-    private PersonService personService = new PersonService();
 
     @Autowired
     private CarService carService;
