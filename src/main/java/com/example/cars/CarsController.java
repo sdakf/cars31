@@ -15,7 +15,6 @@ public class CarsController {
     @Autowired
     private CarService carService;
 
-
     @PostMapping("/cars")
     public ResponseEntity<CarDto> add(@RequestBody CarDto carDto) {
         CarDto car = carService.add(carDto);
@@ -23,8 +22,10 @@ public class CarsController {
     }
 
     @GetMapping("/cars")
-    public ResponseEntity<List<CarDto>> list(@RequestParam(required = false) String q) {
-        List<CarDto> carFind = carService.find(q);
+    public ResponseEntity<List<CarDto>> list(
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) Long ownerId) {
+        List<CarDto> carFind = carService.find(q, ownerId);
         return ResponseEntity.ok(carFind);
     }
 

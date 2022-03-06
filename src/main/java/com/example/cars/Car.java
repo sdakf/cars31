@@ -1,12 +1,10 @@
 package com.example.cars;
 
+import com.example.cars.users.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,6 +12,9 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private User owner;
 
     private String model;
 
@@ -27,11 +28,13 @@ public class Car {
     }
 
     public CarDto toDto() {
-        return new CarDto(id, model, mileage);
+        Long ownerId = owner == null ? null : owner.getId();
+        return new CarDto(this.id, model, mileage, ownerId);
     }
 
-    public void update(CarDto carDto) {
+    public void update(CarDto carDto, User owner) {
         this.model = carDto.getModel();
         this.mileage = carDto.getMileage();
+        this.owner = owner;
     }
 }

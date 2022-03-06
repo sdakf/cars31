@@ -26,7 +26,7 @@ public class UserService {
     public UserDto fetchUsersById(Long id) {
         return userRepository.findById(id)
                 .map(user -> user.toDto())
-                .orElseThrow(()->new RuntimeException());
+                .orElseThrow(() -> new RuntimeException());
     }
 
     public UserDto createUser(UserDto userDto) {

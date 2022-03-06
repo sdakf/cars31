@@ -1,5 +1,8 @@
 package com.example.cars;
 
+import com.example.cars.users.User;
+import com.example.cars.users.UserRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +13,10 @@ import java.util.stream.Collectors;
 //@Component//bean -> SINGLETON
 public class CarService {
 
-    private PersonService personService;
-
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public CarDto add(CarDto carDto) {
         Car car = Car.create(carDto);
@@ -21,13 +24,23 @@ public class CarService {
         return saved.toDto();
     }
 
-    public List<CarDto> find(String query) {
-        if (query == null || query.isBlank()) {
+    public List<CarDto> find(String model, Long ownerId) {
+        if (StringUtils.isBlank(model) && ownerId == null) {  // null ""   "  "
             return carRepository.findAll().stream()
                     .map(c -> c.toDto())
                     .collect(Collectors.toList());
         }
-        return carRepository.findByModel(query).stream()
+        if (StringUtils.isNotBlank(model) && ownerId != null) {  // null ""   "  "
+            return carRepository.findByOwnerAndModel(model, ownerId).stream()
+                    .map(c -> c.toDto())
+                    .collect(Collectors.toList());
+        }
+        if (StringUtils.isNotBlank(model)) {
+            return carRepository.findByModel(model).stream()
+                    .map(Car::toDto)
+                    .collect(Collectors.toList());
+        }
+        return carRepository.findByOwner(ownerId).stream()
                 .map(Car::toDto)
                 .collect(Collectors.toList());
     }
@@ -39,7 +52,9 @@ public class CarService {
     public CarDto updateCar(Long id, CarDto carDto) {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
-        car.update(carDto);
+        User user = userRepository.findById(carDto.getOwnerId())
+                .orElseThrow(() -> new EntityNotFoundException(carDto.getOwnerId()));
+        car.update(carDto, user);
         Car saved = carRepository.save(car);
         return saved.toDto();
     }

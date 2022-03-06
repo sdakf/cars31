@@ -1,0 +1,153 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CARS",
+		"_postman_id": "90fa3421-7bde-e556-95b1-bc49525c858c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET cars",
+			"request": {
+				"url": "localhost:8080/cars",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET user ",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST cars",
+			"request": {
+				"url": "localhost:8080/cars",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"model\": \"Skoda Fabia\",\n\t\"mileage\": \"70000\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST user",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Patryk\",\n\t\"surname\": \"P\",\n\t\"password\": \"alamakota\",\n\t\"login\": \"danielk\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT cars",
+			"request": {
+				"url": "localhost:8080/",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"id\": 2,\n        \"model\": \"Audi a4\",\n        \"mileage\": 30000\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT user",
+			"request": {
+				"url": "localhost:8080/users/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 2,\n        \"firstName\": \"Krystian\",\n        \"surname\": \"L\",\n        \"password\": \"zyrafa\",\n        \"login\": \"profesor.k\"\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE cars",
+			"request": {
+				"url": "localhost:8080/cars/3",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE user",
+			"request": {
+				"url": "localhost:8080/users/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
