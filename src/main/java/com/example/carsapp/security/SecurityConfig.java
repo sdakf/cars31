@@ -1,18 +1,35 @@
 package com.example.carsapp.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override//to jest konfiguracja sposobu logowania użytkownika
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("Adam").password("Adam_pass").roles("USER");
+                .withUser("Adam")
+                .password(passwordEncoder.encode("Adam_pass"))
+                .roles("USER");
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery(
+                        "select u.login, u.password, 1 from users u where u.login = ?"
+                )
+                .authoritiesByUsernameQuery(
+                        "select u.login,r.role_name from Users u " +
+                                "join Users_Roles u_r on u.id = u_r.u_id " +
+                                "join Roles r on u_r.r_id = r.id" +
+                                "where u.login = ?"
+                );
+
 
     }
 
