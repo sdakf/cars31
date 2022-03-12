@@ -1,12 +1,14 @@
 package com.example.carsapp.cars;
 
 import com.example.carsapp.EntityNotFoundException;
+import com.example.carsapp.options.CarOptionsService;
 import com.example.carsapp.users.User;
 import com.example.carsapp.users.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,9 @@ public class CarService {
     private CarRepository carRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CarOptionsService carOptionsService;
 
     public CarDto add(CarDto carDto) {
         Car car = Car.create(carDto);
@@ -55,7 +60,11 @@ public class CarService {
                 .orElseThrow(() -> new EntityNotFoundException(id));
         User user = userRepository.findById(carDto.getOwnerId())
                 .orElseThrow(() -> new EntityNotFoundException(carDto.getOwnerId()));
-        car.update(carDto, user);
+
+        List<Long> optionIds = carDto.getOptionIds();
+        BigDecimal sum = carOptionsService.fetchPrices(optionIds);
+
+        car.update(carDto, user,sum);
         Car saved = carRepository.save(car);
         return saved.toDto();
     }

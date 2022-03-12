@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/cars", "/cars/**").hasAnyAuthority("ADMIN","USER")
+//                .antMatchers("/cars", "/cars/**").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/h2-console").permitAll()
                 .anyRequest().permitAll() //dostep maja wszyscy wszedzie
                 .and()
