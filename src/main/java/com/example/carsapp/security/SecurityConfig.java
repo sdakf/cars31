@@ -7,18 +7,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override//to jest konfiguracja sposobu logowania użytkownika
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("Adam")
-                .password(passwordEncoder.encode("Adam_pass"))
-                .roles("USER");
+//        auth.inMemoryAuthentication()
+//                .withUser("Adam")
+//                .password(passwordEncoder.encode("Adam_pass"))
+//                .roles("USER");
         auth.jdbcAuthentication()
                 .usersByUsernameQuery(
                         "select u.login, u.password, 1 from users u where u.login = ?"
@@ -26,11 +31,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(
                         "select u.login,r.role_name from Users u " +
                                 "join Users_Roles u_r on u.id = u_r.u_id " +
-                                "join Roles r on u_r.r_id = r.id" +
+                                "join Roles r on u_r.r_id = r.id " +
                                 "where u.login = ?"
-                );
-
-
+                )
+                .passwordEncoder(passwordEncoder)
+                .dataSource(dataSource);
     }
 
     @Override//to jest konfiguracja blokowanych zasobów
@@ -39,11 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/cars", "/cars/**").authenticated()
+                .antMatchers("/cars", "/cars/**").hasAnyAuthority("ADMIN","USER")
+                .antMatchers("/h2-console").permitAll()
                 .anyRequest().permitAll() //dostep maja wszyscy wszedzie
                 .and()
                 .httpBasic(); //wlaczenie autentykacji przy pomocy headera Authorization Basic
 
+        http.headers().frameOptions().disable();
 
     }
 }
