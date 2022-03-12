@@ -17,7 +17,4 @@ public class OptionController {
     public ResponseEntity<List<CarOptionDto>> getCarOptions() {
         return ResponseEntity.ok(carOptionsService.getCarOptions());
     }
-
-
-
 }

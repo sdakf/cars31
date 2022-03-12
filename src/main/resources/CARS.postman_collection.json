@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "CARS",
-		"_postman_id": "90fa3421-7bde-e556-95b1-bc49525c858c",
+		"_postman_id": "13ed9ff9-e36a-6a9d-8f94-97a199cc79c1",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,31 +10,31 @@
 		{
 			"name": "GET cars",
 			"request": {
-				"url": {
-					"raw": "localhost:8080/cars?ownerId=1&q=Citroen",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"cars"
-					],
-					"query": [
-						{
-							"key": "ownerId",
-							"value": "1",
-							"equals": true,
-							"description": ""
-						},
-						{
-							"key": "q",
-							"value": "Citroen",
-							"equals": true,
-							"description": ""
-						}
-					],
-					"variable": []
-				},
+				"url": "localhost:8080/cars",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRhbTpBZGFtX3Bhc3M=",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET options",
+			"request": {
+				"url": "localhost:8080/car-options",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -48,7 +48,10 @@
 				"url": "localhost:8080/users",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -107,7 +110,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"id\": 1,\n        \"model\": \"Citroen C5\",\n        \"mileage\": 100000,\n        \"ownerId\": 1,\n        \"optionIds\":[1,2]\n    },"
+					"raw": "    {\n        \"id\": 1,\n        \"model\": \"Audi A3\",\n        \"mileage\": 0,\n        \"ownerId\": 1,\n        \"optionIds\": [1,2]\n    },"
 				},
 				"description": ""
 			},
@@ -169,6 +172,17 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET equipment",
+			"request": {
+				"url": "http://localhost:9090/equipment/k006\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []
